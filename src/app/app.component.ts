@@ -14,6 +14,7 @@ const HEROES: Hero[] = [
 
 @Component({
   selector: 'my-app',
+  providers: [HeroService],
   styles: [`
   .selected {
     background-color: #CFD8DC !important;
@@ -78,9 +79,14 @@ const HEROES: Hero[] = [
 })
 export class AppComponent{
   title = 'Tour or Heroes';
+  selectedHero: Hero;
+  heroes: Hero[];
+
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
   };
-  selectedHero: Hero;
-  heroes = HEROES;
+
+  constructor(private heroService: HeroService) {
+    this.heroes = this.heroService.getHeroes();
+  }
 }
